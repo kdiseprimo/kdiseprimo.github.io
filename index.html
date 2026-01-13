@@ -47,6 +47,28 @@
       <p class="sub">Fecha por confirmar</p>
     </div>
 
+    <div class="card">
+  <h2>Minijuego</h2>
+  <p style="margin:0 0 10px 0;opacity:.85">Esquiva los bloques. Cada vez va más rápido. Guarda tu récord (máx 12 letras)</p>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+    <button class="btn" id="startBtn">Empezar</button>
+    <div style="opacity:.9"><strong>Puntos:</strong> <span id="score">0</span></div>
+    <div style="opacity:.9"><strong>Top 3:</strong> <span id="topInline">—</span></div>
+  </div>
+
+  <canvas id="game" width="900" height="520"
+    style="background:#111;border:1px solid #2a2a2a;border-radius:16px;width:100%;height:auto;touch-action:none"></canvas>
+
+  <div style="display:grid;gap:8px;margin-top:10px">
+    <div class="card" style="margin:0">
+      <strong>Top 3</strong>
+      <ol id="topList" style="margin:8px 0 0 18px;padding:0"></ol>
+    </div>
+  </div>
+</div>
+
+
     <!-- LINKS (lo dejamos como estaba) -->
     <div class="card">
       <h2>Links</h2>
@@ -91,6 +113,165 @@
       <p>Instagram mensaje directo: @kdiseprimo_</p>
     </div>
   </div>
+  <script>
+(() => {
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  const startBtn = document.getElementById("startBtn");
+  const scoreEl = document.getElementById("score");
+  const topInline = document.getElementById("topInline");
+  const topList = document.getElementById("topList");
+
+  const W = canvas.width, H = canvas.height;
+
+  let running = false;
+  let t = 0;
+  let last = 0;
+  let score = 0;
+
+  const player = { w:44, h:44, x:W/2-22, y:H-70, vx:0 };
+  let obstacles = [];
+  let spawnTimer = 0;
+  let speed = 220;
+
+  const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+
+  function renderTop(arr){
+    topList.innerHTML = "";
+    arr.slice(0,3).forEach(s=>{
+      const li = document.createElement("li");
+      li.textContent = `${s.name} — ${s.score}`;
+      topList.appendChild(li);
+    });
+    topInline.textContent = arr.length ? `${arr[0].name} ${arr[0].score}` : "—";
+  }
+
+  function loadLocalTop(){
+    const raw = localStorage.getItem("kd_top3") || "[]";
+    const arr = JSON.parse(raw);
+    renderTop(arr);
+    return arr;
+  }
+
+  function saveLocalScore(name, sc){
+    name = (name||"anon").trim().slice(0,12);
+    if(!name) name = "anon";
+    const arr = loadLocalTop();
+    arr.push({name, score: sc, at: Date.now()});
+    arr.sort((a,b)=>b.score-a.score || a.at-b.at);
+    const top3 = arr.slice(0,3);
+    localStorage.setItem("kd_top3", JSON.stringify(top3));
+    renderTop(top3);
+  }
+
+  function reset(){
+    player.x = W/2-player.w/2;
+    player.vx = 0;
+    obstacles = [];
+    spawnTimer = 0;
+    speed = 220;
+    score = 0;
+    t = 0;
+    scoreEl.textContent = "0";
+  }
+
+  function start(){
+    reset();
+    running = true;
+    last = performance.now();
+    requestAnimationFrame(loop);
+  }
+
+  function gameOver(){
+    running = false;
+    const name = prompt("Tu nombre (máx 12 letras):") || "anon";
+    saveLocalScore(name, score);
+  }
+
+  function spawn(){
+    const size = 26 + Math.random()*26;
+    const x = Math.random()*(W-size);
+    obstacles.push({x, y:-size, w:size, h:size, vy: speed*(0.7+Math.random()*0.6)});
+  }
+
+  function hit(a,b){
+    return a.x < b.x+b.w && a.x+a.w > b.x && a.y < b.y+b.h && a.y+a.h > b.y;
+  }
+
+  function update(dt){
+    t += dt;
+    speed = 220 + t*18;
+    const spawnEvery = Math.max(0.20, 0.70 - t*0.02);
+
+    spawnTimer += dt;
+    while(spawnTimer > spawnEvery){
+      spawnTimer -= spawnEvery;
+      spawn();
+      if (t > 10 && Math.random() < 0.35) spawn();
+    }
+
+    player.x += player.vx*dt;
+    player.x = clamp(player.x, 0, W-player.w);
+
+    obstacles.forEach(o=>o.y += o.vy*dt);
+    obstacles = obstacles.filter(o=>o.y < H+60);
+
+    for(const o of obstacles){
+      if(hit(player,o)) return gameOver();
+    }
+
+    score = Math.floor(t*10);
+    scoreEl.textContent = score;
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = "#0f0f0f";
+    ctx.fillRect(0,H-40,W,40);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(player.x, player.y, player.w, player.h);
+
+    ctx.fillStyle = "#cfcfcf";
+    obstacles.forEach(o=>ctx.fillRect(o.x,o.y,o.w,o.h));
+  }
+
+  function loop(now){
+    if(!running) return;
+    const dt = Math.min(0.033, (now-last)/1000);
+    last = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  // teclado
+  window.addEventListener("keydown", (e)=>{
+    if(e.key==="ArrowLeft") player.vx = -420;
+    if(e.key==="ArrowRight") player.vx = 420;
+  });
+  window.addEventListener("keyup", (e)=>{
+    if(e.key==="ArrowLeft" || e.key==="ArrowRight") player.vx = 0;
+  });
+
+  // táctil: arrastrar
+  let dragging=false;
+  canvas.addEventListener("pointerdown", ()=>{dragging=true;});
+  canvas.addEventListener("pointerup", ()=>{dragging=false; player.vx=0;});
+  canvas.addEventListener("pointermove", (e)=>{
+    if(!dragging) return;
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX-rect.left) * (canvas.width/rect.width);
+    player.x = clamp(x-player.w/2, 0, W-player.w);
+  });
+
+  startBtn.addEventListener("click", start);
+
+  // init
+  loadLocalTop();
+})();
+</script>
+
 </body>
 </html>
 
