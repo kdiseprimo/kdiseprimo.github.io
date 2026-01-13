@@ -3,30 +3,58 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kdiseprimo</title>
+  <title>KDISEPRIMO</title>
   <style>
     body{font-family:system-ui,Arial;margin:0;background:#0b0b0b;color:#fff}
     .wrap{max-width:900px;margin:0 auto;padding:24px}
     a{color:#fff}
     .card{background:#151515;border:1px solid #2a2a2a;border-radius:16px;padding:16px;margin:12px 0}
     .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .btn{display:inline-block;padding:10px 14px;border:1px solid #2a2a2a;border-radius:12px;text-decoration:none;margin:6px 8px 0 0}
-    h1{margin:0 0 8px}
+    .btn{display:inline-block;padding:10px 14px;border:1px solid #2a2a2a;border-radius:12px;text-decoration:none;margin:6px 8px 0 0;cursor:pointer}
+    h1{margin:0 0 8px;letter-spacing:1px}
     h2{margin:8px 0}
     small{opacity:.8}
+
+    /* Bloque destacado */
+    .highlight{
+      background:#1b1b1b;
+      border:2px solid #ffffff;
+      border-radius:16px;
+      padding:18px;
+      margin:16px 0 12px 0;
+    }
+    .highlight h2{margin:0 0 8px 0}
+    .highlight .big{font-size:20px;font-weight:700;margin:0 0 6px 0}
+    .highlight .sub{opacity:.9;margin:0}
+
+    /* Estilo del desplegable */
+    details{margin-top:6px}
+    summary{list-style:none}
+    summary::-webkit-details-marker{display:none}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Kdiseprimo</h1>
+    <h1>KDISEPRIMO</h1>
     <small>Música · Próximos drops</small>
 
+    <div class="highlight">
+      <h2>Próximo lanzamiento</h2>
+      <p class="big">"Un gitano en Madrid"</p>
+      <p class="sub">Fecha por confirmar</p>
+    </div>
+
     <div class="card">
-      <h2>Links</h2>
-      <a class="btn" href="https://open.spotify.com/intl-es/artist/4Q2DU497iIFBFopL3EOk0R?si=vV76UVhKTQSD8-_0R8F7VA">Spotify</a>
-      <a class="btn" href="https://youtube.com/channel/UC5CHMp3u4PjXeLBRovIYnUQ?si=ofgjeWpJKWaw-Lyy">YouTube</a>
-      <a class="btn" href="https://www.tiktok.com/@kdiseprimo_?is_from_webapp=1&sender_device=pc">TikTok</a>
-      <a class="btn" href="https://www.instagram.com/kdiseprimo_/">Instagram</a>
+      <h2>Escuchar</h2>
+      <details>
+        <summary class="btn">Escuchar aquí</summary>
+        <div style="margin-top:12px">
+          <a class="btn" href="https://open.spotify.com/intl-es/artist/4Q2DU497iIFBFopL3EOk0R?si=vV76UVhKTQSD8-_0R8F7VA" target="_blank" rel="noopener">Spotify</a>
+          <a class="btn" href="https://youtube.com/channel/UC5CHMp3u4PjXeLBRovIYnUQ?si=ofgjeWpJKWaw-Lyy" target="_blank" rel="noopener">YouTube</a>
+          <a class="btn" href="https://www.tiktok.com/@kdiseprimo_?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
+          <a class="btn" href="https://www.instagram.com/kdiseprimo_/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </details>
     </div>
 
     <div class="card">
@@ -42,11 +70,6 @@
         <div class="card"><strong>pasame la pipa</strong><br><small>https://open.spotify.com/intl-es/track/5Vy8VlQgm0Qja8hEh2AkBK?si=57d9b8f011df4fbf</small></div>
         <div class="card"><strong>Puta pobreza</strong><br><small>https://open.spotify.com/intl-es/track/2q6qbrJbF8oLcwfIA3ccol?si=428cc4c907d647c0</small></div>
       </div>
-    </div>
-
-    <div class="card">
-      <h2>Próximamente</h2>
-      <p>"Un gitano en Madrid" — Fecha por confirmar</p>
     </div>
 
     <div class="card">
