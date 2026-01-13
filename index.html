@@ -3,7 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KDISEPRIMO</title>
+  <title>kdiseprimo</title>
+
+  <!-- Intento cargar la fuente "Asset" -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Asset&display=swap" rel="stylesheet">
+
   <style>
     body{font-family:system-ui,Arial;margin:0;background:#0b0b0b;color:#fff}
     .wrap{max-width:900px;margin:0 auto;padding:24px}
@@ -11,7 +17,7 @@
     .card{background:#151515;border:1px solid #2a2a2a;border-radius:16px;padding:16px;margin:12px 0}
     .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
     .btn{display:inline-block;padding:10px 14px;border:1px solid #2a2a2a;border-radius:12px;text-decoration:none;margin:6px 8px 0 0;cursor:pointer}
-    h1{margin:0 0 8px;letter-spacing:1px}
+    h1{margin:0 0 8px;letter-spacing:.5px;font-family:"Asset", system-ui, Arial; font-size:44px; line-height:1}
     h2{margin:8px 0}
     small{opacity:.8}
 
@@ -24,18 +30,15 @@
       margin:16px 0 12px 0;
     }
     .highlight h2{margin:0 0 8px 0}
-    .highlight .big{font-size:20px;font-weight:700;margin:0 0 6px 0}
+    .highlight .big{font-size:20px;font-weight:800;margin:0 0 6px 0}
     .highlight .sub{opacity:.9;margin:0}
 
-    /* Estilo del desplegable */
-    details{margin-top:6px}
-    summary{list-style:none}
-    summary::-webkit-details-marker{display:none}
+    .song-title{margin:0 0 10px 0}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>KDISEPRIMO</h1>
+    <h1>kdiseprimo</h1>
     <small>Música · Próximos drops</small>
 
     <div class="highlight">
@@ -44,31 +47,42 @@
       <p class="sub">Fecha por confirmar</p>
     </div>
 
+    <!-- LINKS (lo dejamos como estaba) -->
     <div class="card">
-      <h2>Escuchar</h2>
-      <details>
-        <summary class="btn">Escuchar aquí</summary>
-        <div style="margin-top:12px">
-          <a class="btn" href="https://open.spotify.com/intl-es/artist/4Q2DU497iIFBFopL3EOk0R?si=vV76UVhKTQSD8-_0R8F7VA" target="_blank" rel="noopener">Spotify</a>
-          <a class="btn" href="https://youtube.com/channel/UC5CHMp3u4PjXeLBRovIYnUQ?si=ofgjeWpJKWaw-Lyy" target="_blank" rel="noopener">YouTube</a>
-          <a class="btn" href="https://www.tiktok.com/@kdiseprimo_?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
-          <a class="btn" href="https://www.instagram.com/kdiseprimo_/" target="_blank" rel="noopener">Instagram</a>
-        </div>
-      </details>
+      <h2>Links</h2>
+      <a class="btn" href="https://open.spotify.com/intl-es/artist/4Q2DU497iIFBFopL3EOk0R?si=vV76UVhKTQSD8-_0R8F7VA" target="_blank" rel="noopener">Spotify</a>
+      <a class="btn" href="https://youtube.com/channel/UC5CHMp3u4PjXeLBRovIYnUQ?si=ofgjeWpJKWaw-Lyy" target="_blank" rel="noopener">YouTube</a>
+      <a class="btn" href="https://www.tiktok.com/@kdiseprimo_?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
+      <a class="btn" href="https://www.instagram.com/kdiseprimo_/" target="_blank" rel="noopener">Instagram</a>
     </div>
 
+    <!-- ÚLTIMO LANZAMIENTO (con botón) -->
     <div class="card">
       <h2>Último lanzamiento</h2>
-      <p><strong>Consobrina mea Mora</strong></p>
-      <p>https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=1d8d718541ed4fb3</p>
+      <p class="song-title"><strong>Consobrina mea Mora</strong></p>
+      <a class="btn" href="https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=1d8d718541ed4fb3" target="_blank" rel="noopener">Escuchar aquí</a>
     </div>
 
+    <!-- CANCIONES (cada una con botón) -->
     <div class="card">
       <h2>Canciones</h2>
       <div class="grid">
-        <div class="card"><strong>Consobrina mea Mora</strong><br><small>https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=cb9ae0dab4d7402f</small></div>
-        <div class="card"><strong>pasame la pipa</strong><br><small>https://open.spotify.com/intl-es/track/5Vy8VlQgm0Qja8hEh2AkBK?si=57d9b8f011df4fbf</small></div>
-        <div class="card"><strong>Puta pobreza</strong><br><small>https://open.spotify.com/intl-es/track/2q6qbrJbF8oLcwfIA3ccol?si=428cc4c907d647c0</small></div>
+
+        <div class="card">
+          <p class="song-title"><strong>Consobrina mea Mora</strong></p>
+          <a class="btn" href="https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=cb9ae0dab4d7402f" target="_blank" rel="noopener">Escuchar aquí</a>
+        </div>
+
+        <div class="card">
+          <p class="song-title"><strong>pasame la pipa</strong></p>
+          <a class="btn" href="https://open.spotify.com/intl-es/track/5Vy8VlQgm0Qja8hEh2AkBK?si=57d9b8f011df4fbf" target="_blank" rel="noopener">Escuchar aquí</a>
+        </div>
+
+        <div class="card">
+          <p class="song-title"><strong>Puta pobreza</strong></p>
+          <a class="btn" href="https://open.spotify.com/intl-es/track/2q6qbrJbF8oLcwfIA3ccol?si=428cc4c907d647c0" target="_blank" rel="noopener">Escuchar aquí</a>
+        </div>
+
       </div>
     </div>
 
@@ -79,3 +93,4 @@
   </div>
 </body>
 </html>
+
