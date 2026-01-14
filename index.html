@@ -5,41 +5,128 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>kdiseprimo</title>
 
-  <!-- Fuente "Asset" -->
+  <!-- Título: Asset -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Asset&display=swap" rel="stylesheet">
 
+  <!-- Texto general (cámbiala si quieres otra): Space Grotesk -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body{font-family:system-ui,Arial;margin:0;background:#0b0b0b;color:#fff}
-    .wrap{max-width:900px;margin:0 auto;padding:24px}
+    :root{
+      --bg:#0b0b0b;
+      --card: rgba(18,18,18,.62);
+      --border: rgba(255,255,255,.10);
+      --border2: rgba(255,255,255,.16);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,.78);
+      --muted2: rgba(255,255,255,.62);
+    }
+
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:"Space Grotesk", system-ui, Arial;
+      background:
+        linear-gradient(rgba(11,11,11,.78), rgba(11,11,11,.88)),
+        url("bg.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .wrap{max-width:980px;margin:0 auto;padding:26px}
     a{color:#fff}
-    .card{background:#151515;border:1px solid #2a2a2a;border-radius:16px;padding:16px;margin:12px 0}
-    .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .btn{display:inline-block;padding:10px 14px;border:1px solid #2a2a2a;border-radius:12px;text-decoration:none;margin:6px 8px 0 0;cursor:pointer;background:transparent;color:#fff}
-    h1{margin:0 0 8px;letter-spacing:.5px;font-family:"Asset", system-ui, Arial; font-size:44px; line-height:1}
-    h2{margin:8px 0}
-    small{opacity:.8}
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      margin:12px 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      margin:6px 8px 0 0;
+      cursor:pointer;
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(255,255,255,.10); border-color: var(--border2)}
+    .btn:active{transform: translateY(1px)}
+
+    h1{
+      margin:0 0 6px;
+      letter-spacing:.5px;
+      font-family:"Asset", system-ui, Arial;
+      font-size:48px;
+      line-height:1;
+      text-transform: lowercase;
+    }
+    .subhead{opacity:.85;margin:0 0 14px 0}
+
+    h2{margin:8px 0 10px}
+    small{opacity:.85}
 
     /* Bloque destacado */
     .highlight{
-      background:#1b1b1b;
-      border:2px solid #ffffff;
-      border-radius:16px;
+      background: rgba(255,255,255,.06);
+      border:2px solid rgba(255,255,255,.75);
+      border-radius:18px;
       padding:18px;
       margin:16px 0 12px 0;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    .highlight h2{margin:0 0 8px 0}
-    .highlight .big{font-size:20px;font-weight:800;margin:0 0 6px 0}
+    .highlight h2{margin:0 0 10px 0}
+    .highlight .big{font-size:22px;font-weight:800;margin:0 0 6px 0}
     .highlight .sub{opacity:.9;margin:0}
 
-    .song-title{margin:0 0 10px 0}
+    /* Links con iconos */
+    .iconRow{display:flex;gap:10px;flex-wrap:wrap}
+    .iconBtn{
+      width:44px;height:44px;
+      display:inline-flex;align-items:center;justify-content:center;
+      border-radius:14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .iconBtn:hover{background: rgba(255,255,255,.10); border-color: var(--border2)}
+    .iconBtn:active{transform: translateY(1px)}
+    .iconBtn svg{width:22px;height:22px;fill:#fff;opacity:.95}
+
+    /* Tarjetas de canción con mini portada */
+    .songCard{display:flex;gap:12px;align-items:center}
+    .cover{
+      width:54px;height:54px;border-radius:14px;object-fit:cover;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      flex:0 0 auto;
+    }
+    .songMeta{flex:1;min-width:0}
+    .songTitle{margin:0 0 6px 0;font-weight:800}
+    .songNote{margin:0;color:var(--muted2);font-size:14px}
 
     /* Juego */
     canvas#game{
-      background:#111;
-      border:1px solid #2a2a2a;
-      border-radius:16px;
+      background: rgba(10,10,10,.75);
+      border:1px solid var(--border);
+      border-radius:18px;
       width:100%;
       height:auto;
       touch-action:none;
@@ -47,10 +134,11 @@
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <h1>kdiseprimo</h1>
-    <small>Música · Próximos drops</small>
+    <p class="subhead">Música · Próximos drops · Top 3 global</p>
 
     <div class="highlight">
       <h2>Próximo lanzamiento</h2>
@@ -58,7 +146,7 @@
       <p class="sub">Fecha por confirmar</p>
     </div>
 
-    <!-- MINIJUEGO (debajo de Próximo lanzamiento) -->
+    <!-- MINIJUEGO -->
     <div class="card">
       <h2>Minijuego</h2>
       <p style="margin:0 0 10px 0;opacity:.85">Esquiva los bloques. Cada vez va más rápido. Guarda tu récord (máx 12 letras)</p>
@@ -71,46 +159,86 @@
 
       <canvas id="game" width="900" height="520"></canvas>
 
-      <div style="display:grid;gap:8px;margin-top:10px">
-        <div class="card" style="margin:0">
-          <strong>Top 3 Global</strong>
-          <ol id="topList" style="margin:8px 0 0 18px;padding:0"></ol>
-        </div>
+      <div class="card" style="margin:12px 0 0">
+        <strong>Top 3 Global</strong>
+        <ol id="topList" style="margin:8px 0 0 18px;padding:0"></ol>
       </div>
     </div>
 
-    <!-- LINKS (se queda como estaba) -->
+    <!-- LINKS (iconos blancos) -->
     <div class="card">
       <h2>Links</h2>
-      <a class="btn" href="https://open.spotify.com/intl-es/artist/4Q2DU497iIFBFopL3EOk0R?si=vV76UVhKTQSD8-_0R8F7VA" target="_blank" rel="noopener">Spotify</a>
-      <a class="btn" href="https://youtube.com/channel/UC5CHMp3u4PjXeLBRovIYnUQ?si=ofgjeWpJKWaw-Lyy" target="_blank" rel="noopener">YouTube</a>
-      <a class="btn" href="https://www.tiktok.com/@kdiseprimo_?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">TikTok</a>
-      <a class="btn" href="https://www.instagram.com/kdiseprimo_/" target="_blank" rel="noopener">Instagram</a>
+      <div class="iconRow">
+        <!-- Spotify -->
+        <a class="iconBtn" href="https://open.spotify.com/intl-es/artist/4Q2DU497iIFBFopL3EOk0R?si=vV76UVhKTQSD8-_0R8F7VA" target="_blank" rel="noopener" aria-label="Spotify">
+          <svg viewBox="0 0 24 24"><path d="M12 1.8C6.37 1.8 1.8 6.37 1.8 12S6.37 22.2 12 22.2 22.2 17.63 22.2 12 17.63 1.8 12 1.8Zm4.67 14.7a.75.75 0 0 1-1.03.25c-2.83-1.73-6.4-2.12-10.62-1.16a.75.75 0 1 1-.33-1.46c4.61-1.05 8.55-.6 11.72 1.33.35.21.46.68.26 1.04Zm1.47-3.27a.9.9 0 0 1-1.24.3c-3.24-1.99-8.17-2.57-11.98-1.42a.9.9 0 1 1-.52-1.72c4.35-1.32 9.75-.67 13.48 1.62.42.25.56.8.26 1.22Zm.13-3.41c-3.88-2.3-10.29-2.51-14-.1a1.05 1.05 0 1 1-1.14-1.75c4.27-2.78 11.37-2.56 15.84.1a1.05 1.05 0 0 1-1.07 1.75Z"/></svg>
+        </a>
+
+        <!-- YouTube -->
+        <a class="iconBtn" href="https://youtube.com/channel/UC5CHMp3u4PjXeLBRovIYnUQ?si=ofgjeWpJKWaw-Lyy" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M21.6 7.2a3 3 0 0 0-2.1-2.12C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.48A3 3 0 0 0 2.4 7.2 31.3 31.3 0 0 0 2 12a31.3 31.3 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.12c1.8.48 7.5.48 7.5.48s5.7 0 7.5-.48a3 3 0 0 0 2.1-2.12A31.3 31.3 0 0 0 22 12a31.3 31.3 0 0 0-.4-4.8ZM10.2 15.2V8.8L15.7 12l-5.5 3.2Z"/></svg>
+        </a>
+
+        <!-- TikTok -->
+        <a class="iconBtn" href="https://www.tiktok.com/@kdiseprimo_?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M16.7 3c.4 3 2.5 4.8 5.3 5v3.2c-2 0-3.8-.6-5.3-1.7V16c0 4-3.2 7-7.1 7-3.8 0-6.9-3-6.9-6.9 0-3.9 3-7 6.9-7 .4 0 .7 0 1.1.1v3.4c-.4-.1-.7-.2-1.1-.2-2.1 0-3.7 1.7-3.7 3.8 0 2.1 1.7 3.8 3.7 3.8 2.2 0 3.9-1.8 3.9-4V3h3.2Z"/></svg>
+        </a>
+
+        <!-- Instagram -->
+        <a class="iconBtn" href="https://www.instagram.com/kdiseprimo_/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7.2 2h9.6A5.2 5.2 0 0 1 22 7.2v9.6A5.2 5.2 0 0 1 16.8 22H7.2A5.2 5.2 0 0 1 2 16.8V7.2A5.2 5.2 0 0 1 7.2 2Zm9.6 2H7.2A3.2 3.2 0 0 0 4 7.2v9.6A3.2 3.2 0 0 0 7.2 20h9.6A3.2 3.2 0 0 0 20 16.8V7.2A3.2 3.2 0 0 0 16.8 4ZM12 7.2A4.8 4.8 0 1 1 7.2 12 4.8 4.8 0 0 1 12 7.2Zm0 2A2.8 2.8 0 1 0 14.8 12 2.8 2.8 0 0 0 12 9.2Zm5.7-.9a1.1 1.1 0 1 1-1.1-1.1 1.1 1.1 0 0 1 1.1 1.1Z"/></svg>
+        </a>
+      </div>
+      <p style="margin:10px 0 0;color:var(--muted2);font-size:14px">Iconos en blanco para encajar con el fondo</p>
     </div>
 
-    <!-- ÚLTIMO LANZAMIENTO (con botón) -->
+    <!-- ÚLTIMO LANZAMIENTO -->
     <div class="card">
       <h2>Último lanzamiento</h2>
-      <p class="song-title"><strong>Consobrina mea Mora</strong></p>
+      <div class="songCard">
+        <img class="cover" src="covers/consobrina.png" alt="Portada Consobrina mea Mora">
+        <div class="songMeta">
+          <p class="songTitle">Consobrina mea Mora</p>
+          <p class="songNote">Single</p>
+        </div>
+      </div>
       <a class="btn" href="https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=1d8d718541ed4fb3" target="_blank" rel="noopener">Escuchar aquí</a>
     </div>
 
-    <!-- CANCIONES (cada una con botón) -->
+    <!-- CANCIONES -->
     <div class="card">
       <h2>Canciones</h2>
       <div class="grid">
-        <div class="card">
-          <p class="song-title"><strong>Consobrina mea Mora</strong></p>
+        <div class="card" style="margin:0">
+          <div class="songCard">
+            <img class="cover" src="covers/consobrina.png" alt="Portada Consobrina mea Mora">
+            <div class="songMeta">
+              <p class="songTitle">Consobrina mea Mora</p>
+              <p class="songNote">Spotify</p>
+            </div>
+          </div>
           <a class="btn" href="https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=cb9ae0dab4d7402f" target="_blank" rel="noopener">Escuchar aquí</a>
         </div>
 
-        <div class="card">
-          <p class="song-title"><strong>pasame la pipa</strong></p>
+        <div class="card" style="margin:0">
+          <div class="songCard">
+            <img class="cover" src="covers/pipa.png" alt="Portada pasame la pipa">
+            <div class="songMeta">
+              <p class="songTitle">pasame la pipa</p>
+              <p class="songNote">Spotify</p>
+            </div>
+          </div>
           <a class="btn" href="https://open.spotify.com/intl-es/track/5Vy8VlQgm0Qja8hEh2AkBK?si=57d9b8f011df4fbf" target="_blank" rel="noopener">Escuchar aquí</a>
         </div>
 
-        <div class="card">
-          <p class="song-title"><strong>Puta pobreza</strong></p>
+        <div class="card" style="margin:0">
+          <div class="songCard">
+            <img class="cover" src="covers/pobreza.png" alt="Portada Puta pobreza">
+            <div class="songMeta">
+              <p class="songTitle">Puta pobreza</p>
+              <p class="songNote">Spotify</p>
+            </div>
+          </div>
           <a class="btn" href="https://open.spotify.com/intl-es/track/2q6qbrJbF8oLcwfIA3ccol?si=428cc4c907d647c0" target="_blank" rel="noopener">Escuchar aquí</a>
         </div>
       </div>
@@ -118,7 +246,7 @@
 
     <div class="card">
       <h2>Contacto</h2>
-      <p>Instagram mensaje directo: @kdiseprimo_</p>
+      <p style="margin:0;color:var(--muted)">Instagram mensaje directo: <strong>@kdiseprimo_</strong></p>
     </div>
   </div>
 
@@ -226,7 +354,6 @@
     function gameOver(){
       running = false;
       const name = prompt("Tu nombre (máx 12 letras):") || "anon";
-      // Guardar global sin bloquear la UI
       saveGlobalScore(name, score);
     }
 
@@ -268,6 +395,8 @@
 
     function draw(){
       ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = "rgba(0,0,0,0)";
+      ctx.fillRect(0,0,W,H);
 
       ctx.fillStyle = "#0f0f0f";
       ctx.fillRect(0,H-40,W,40);
@@ -288,7 +417,7 @@
       requestAnimationFrame(loop);
     }
 
-    // Controles teclado
+    // Teclado
     window.addEventListener("keydown", (e)=>{
       if(e.key==="ArrowLeft") player.vx = -420;
       if(e.key==="ArrowRight") player.vx = 420;
@@ -297,7 +426,7 @@
       if(e.key==="ArrowLeft" || e.key==="ArrowRight") player.vx = 0;
     });
 
-    // Controles táctiles: arrastrar
+    // Táctil: arrastrar
     let dragging=false;
     canvas.addEventListener("pointerdown", ()=>{dragging=true;});
     canvas.addEventListener("pointerup", ()=>{dragging=false; player.vx=0;});
@@ -310,7 +439,7 @@
 
     startBtn.addEventListener("click", start);
 
-    // Init: cargar top global
+    // Init
     loadGlobalTop();
   })();
   </script>
