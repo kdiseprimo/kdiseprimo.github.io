@@ -112,6 +112,18 @@
     /* Song blocks */
     .songTitle{margin:0 0 10px 0;font-weight:800}
 
+    /* ✅ NUEVO: portada mini */
+    .songRow{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+    .cover{
+      width:58px;height:58px;border-radius:14px;object-fit:cover;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      flex:0 0 auto;
+    }
+    .songInfo{min-width:0}
+    .songInfo .songTitle{margin:0 0 4px 0}
+    .songInfo .songSub{margin:0;color:var(--muted2);font-size:14px}
+
     /* Game */
     canvas#game{
       background: rgba(10,10,10,.75);
@@ -190,29 +202,55 @@
       <p style="margin:10px 0 0;color:var(--muted2);font-size:14px">No te pierdas nada</p>
     </div>
 
-    <!-- ÚLTIMO LANZAMIENTO -->
+    <!-- ✅ ÚLTIMO LANZAMIENTO (con portada) -->
     <div class="card">
       <h2>Último lanzamiento</h2>
-      <p class="songTitle">Consobrina mea Mora</p>
+
+      <div class="songRow">
+        <img class="cover" src="covers/consobrina.png" alt="Portada Consobrina mea Mora">
+        <div class="songInfo">
+          <p class="songTitle">Consobrina mea Mora</p>
+          <p class="songSub">Single</p>
+        </div>
+      </div>
+
       <a class="btn" href="https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=1d8d718541ed4fb3" target="_blank" rel="noopener">Escuchar aquí</a>
     </div>
 
-    <!-- CANCIONES -->
+    <!-- ✅ CANCIONES POPULARES (con portada en cada tarjeta) -->
     <div class="card">
       <h2>Canciones populares</h2>
       <div class="grid">
         <div class="card" style="margin:0">
-          <p class="songTitle">Consobrina mea Mora</p>
+          <div class="songRow">
+            <img class="cover" src="covers/consobrina.png" alt="Portada Consobrina mea Mora">
+            <div class="songInfo">
+              <p class="songTitle">Consobrina mea Mora</p>
+              <p class="songSub">Spotify</p>
+            </div>
+          </div>
           <a class="btn" href="https://open.spotify.com/intl-es/track/1yjI7qjl7xAUYVzFQjq9wK?si=cb9ae0dab4d7402f" target="_blank" rel="noopener">Escuchar aquí</a>
         </div>
 
         <div class="card" style="margin:0">
-          <p class="songTitle">pasame la pipa</p>
+          <div class="songRow">
+            <img class="cover" src="covers/pipa.png" alt="Portada pasame la pipa">
+            <div class="songInfo">
+              <p class="songTitle">pasame la pipa</p>
+              <p class="songSub">Spotify</p>
+            </div>
+          </div>
           <a class="btn" href="https://open.spotify.com/intl-es/track/5Vy8VlQgm0Qja8hEh2AkBK?si=57d9b8f011df4fbf" target="_blank" rel="noopener">Escuchar aquí</a>
         </div>
 
         <div class="card" style="margin:0">
-          <p class="songTitle">Puta pobreza</p>
+          <div class="songRow">
+            <img class="cover" src="covers/pobreza.png" alt="Portada Puta pobreza">
+            <div class="songInfo">
+              <p class="songTitle">Puta pobreza</p>
+              <p class="songSub">Spotify</p>
+            </div>
+          </div>
           <a class="btn" href="https://open.spotify.com/intl-es/track/2q6qbrJbF8oLcwfIA3ccol?si=428cc4c907d647c0" target="_blank" rel="noopener">Escuchar aquí</a>
         </div>
       </div>
