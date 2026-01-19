@@ -22,7 +22,6 @@
       --muted2: rgba(255,255,255,.62);
     }
 
-    /* ✅ Fondo robusto en móvil: lo pintamos con un pseudo-elemento fijo */
     html, body { height: 100%; }
     body{
       margin:0;
@@ -94,12 +93,11 @@
     .btn:hover{background: rgba(255,255,255,.10); border-color: var(--border2)}
     .btn:active{transform: translateY(1px)}
 
-    /* ✅ Título más pequeño y sin cortes */
     h1{
       margin:0 0 6px;
       letter-spacing:.3px;
       font-family:"Asset", system-ui, Arial;
-      font-size: 34px;           /* base */
+      font-size: 34px;
       line-height: 1.05;
       text-transform: lowercase;
       white-space: normal;
@@ -107,7 +105,6 @@
       word-break: break-word;
       max-width: 100%;
     }
-    /* En pantallas mayores, un poco más grande */
     @media (min-width: 480px){
       h1{ font-size: 44px; }
     }
@@ -169,27 +166,32 @@
       max-width:100%;
     }
 
-    /* ✅ En móvil, más padding y sin “cosas raras” */
     @media (max-width: 420px){
-  .wrap{ padding:18px; }
-  .highlight .big{ font-size:20px; }
-  h1{ font-size:26px; }
-}
-
-
-
+      .wrap{ padding:18px; }
+      .highlight .big{ font-size:20px; }
+      h1{ font-size:26px; }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <h1>kdiseprimo</h1>
-    <p class="subhead">Próximo lanzamiento · Minijuego · Links · Último lanzamiento · Canciones populares · Contacto</p>
+    <p class="subhead">Próximo lanzamiento · Palmax Palmillax · Minijuego · Links · Último lanzamiento · Canciones populares · Contacto</p>
 
     <div class="highlight">
       <h2>Próximo lanzamiento</h2>
       <p class="big">"Un gitano en Madrid"</p>
       <p class="sub">Fecha por confirmar</p>
+    </div>
+
+    <!-- ✅ DESCARGA ZIP (entre Próximo lanzamiento y Minijuego) -->
+    <div class="card">
+      <h2>Palmax Palmillax</h2>
+      <p style="margin:0 0 10px 0;opacity:.85">Prueba “Palmax Palmillax”, un roguelike de kdiseprimo</p>
+      <a class="btn" href="downloads/palmax-palmillax.zip" download>
+        Prueba “Palmax Palmillax”
+      </a>
     </div>
 
     <div class="card">
